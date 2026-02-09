@@ -110,12 +110,22 @@ export default function AddLessonScreen() {
               style={styles.input}
               value={videoUrl}
               onChangeText={setVideoUrl}
-              placeholder="https://..."
+              placeholder="الصق رابط YouTube أو Zen player هنا..."
               placeholderTextColor={Colors.textMuted}
               textAlign="left"
               autoCapitalize="none"
               keyboardType="url"
             />
+            <View style={styles.videoHints}>
+              <View style={styles.hintRow}>
+                <Ionicons name="logo-youtube" size={16} color="#FF0000" />
+                <Text style={styles.hintText}>youtube.com/watch?v=... أو youtu.be/...</Text>
+              </View>
+              <View style={styles.hintRow}>
+                <Ionicons name="play-circle-outline" size={16} color={Colors.primaryLight} />
+                <Text style={styles.hintText}>dzen.ru/video/... أو zen.yandex.ru/...</Text>
+              </View>
+            </View>
           </>
         )}
 
@@ -226,4 +236,7 @@ const styles = StyleSheet.create({
     minHeight: 40, maxHeight: 80,
   },
   addMsgBtn: { width: 36, height: 36, borderRadius: 10, backgroundColor: Colors.primary, alignItems: 'center', justifyContent: 'center' },
+  videoHints: { marginBottom: 16, gap: 8 },
+  hintRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  hintText: { fontFamily: 'Cairo_400Regular', fontSize: 12, color: Colors.textMuted },
 });

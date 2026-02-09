@@ -41,11 +41,11 @@ export default function RootLayout() {
     if (fontsLoaded) {
       SplashScreen.hideAsync();
       const initData = async () => {
-        const seeded = await AsyncStorage.getItem('seeded_v2');
+        const seeded = await AsyncStorage.getItem('seeded_v3');
         if (!seeded) {
           await clearAllData();
           await seedSampleData();
-          await AsyncStorage.setItem('seeded_v2', 'true');
+          await AsyncStorage.setItem('seeded_v3', 'true');
         }
       };
       initData();

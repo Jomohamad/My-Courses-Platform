@@ -313,6 +313,15 @@ export async function seedSampleData(): Promise<void> {
 
   await addGame({ lessonId: lesson1_4.id, type: 'memory', title: 'أنواع الحلقات', data: { pairs: [{ term: 'for loop', definition: 'تكرار عدد محدد' }, { term: 'while loop', definition: 'تكرار بشرط' }, { term: 'range(10)', definition: 'الأرقام من 0 لـ 9' }, { term: 'break', definition: 'إيقاف الحلقة' }] } as any });
 
+  // حصة 5: فيديو شرح
+  await addLesson({
+    courseId: course1.id,
+    title: 'فيديو: مقدمة عن Python',
+    type: 'video',
+    order: 5,
+    videoUrl: 'https://www.youtube.com/watch?v=rfscVS0vtbw',
+  });
+
   // ===== كورس 2: تصميم المواقع =====
   const course2 = await addCourse({
     title: 'تصميم المواقع',
