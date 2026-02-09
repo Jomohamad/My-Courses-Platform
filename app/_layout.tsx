@@ -8,7 +8,8 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { queryClient } from "@/lib/query-client";
 import { useFonts, Cairo_400Regular, Cairo_600SemiBold, Cairo_700Bold } from "@expo-google-fonts/cairo";
 import { StatusBar } from "expo-status-bar";
-import { seedSampleData } from "@/lib/storage";
+import { seedSampleData, clearAllData } from "@/lib/storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Colors from "@/constants/colors";
 
 SplashScreen.preventAutoHideAsync();
@@ -39,7 +40,15 @@ export default function RootLayout() {
   useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();
-      seedSampleData();
+      const initData = async () => {
+        const seeded = await AsyncStorage.getItem('seeded_v2');
+        if (!seeded) {
+          await clearAllData();
+          await seedSampleData();
+          await AsyncStorage.setItem('seeded_v2', 'true');
+        }
+      };
+      initData();
     }
   }, [fontsLoaded]);
 
