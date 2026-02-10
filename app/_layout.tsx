@@ -11,13 +11,30 @@ import { StatusBar } from "expo-status-bar";
 import { seedSampleData, clearAllData } from "@/lib/storage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Colors from "@/constants/colors";
+import { AuthProvider, useAuth } from "@/lib/auth-context";
 
 SplashScreen.preventAutoHideAsync();
 
 function RootLayoutNav() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return null;
+  }
+
+  if (!user) {
+    return (
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: Colors.background } }}>
+        <Stack.Screen name="login" options={{ animationEnabled: false }} />
+        <Stack.Screen name="signup" options={{ animation: 'slide_from_right' }} />
+        <Stack.Screen name="forgot-password" options={{ animation: 'slide_from_right' }} />
+      </Stack>
+    );
+  }
+
   return (
     <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: Colors.background } }}>
-      <Stack.Screen name="index" />
+      <Stack.Screen name="(tabs)" options={{ animationEnabled: false }} />
       <Stack.Screen name="course/[id]" options={{ animation: 'slide_from_right' }} />
       <Stack.Screen name="lesson/[id]" options={{ animation: 'slide_from_right' }} />
       <Stack.Screen name="quiz/[lessonId]" options={{ animation: 'slide_from_bottom', presentation: 'modal' }} />
@@ -58,10 +75,12 @@ export default function RootLayout() {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <KeyboardProvider>
-            <StatusBar style="light" />
-            <RootLayoutNav />
-          </KeyboardProvider>
+          <AuthProvider>
+            <KeyboardProvider>
+              <StatusBar style="light" />
+              <RootLayoutNav />
+            </KeyboardProvider>
+          </AuthProvider>
         </GestureHandlerRootView>
       </QueryClientProvider>
     </ErrorBoundary>
