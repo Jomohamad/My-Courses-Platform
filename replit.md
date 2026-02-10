@@ -1,1 +1,0 @@
-Removed Replit-specific configuration. Project now uses Supabase for auth/storage and standard EXPO_* environment variables. Deleted Replit agent notes.
