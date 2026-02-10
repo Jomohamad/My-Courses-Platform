@@ -1,60 +1,60 @@
-# My Courses Platform (منصتي)
+# منصتي التعليمية - My Courses Platform (Flutter)
 
-A comprehensive educational platform built with Expo (React Native) and Express backend.
+A modern, interactive educational platform built with Flutter, designed to deliver engaging courses with dialogues, videos, quizzes, and games.
 
 ## Features
 
-- **Courses & Lessons**: Structured learning content with support for dialogue, video, and text lessons.
-- **Interactive Elements**: Quizzes and games (Word Order, Memory, Matching) to reinforce learning.
-- **User Progress**: Track completed lessons, quiz scores, and game achievements.
-- **Authentication**: Secure login and signup powered by Supabase.
-- **Offline Support**: Local caching of course data using AsyncStorage.
-- **Cross-Platform**: Runs on Android, iOS, and Web.
+-   **Interactive Dialogues**: Chat-based lessons that feel like a conversation.
+-   **Video Lessons**: Integrated video player for educational content.
+-   **Quizzes**: Test your knowledge with interactive questions and immediate feedback.
+-   **Educational Games**: Word ordering and memory games to reinforce learning in a fun way.
+-   **Progress Tracking**: Track your completion of lessons and courses.
+-   **Gamification**: Earn scores and achievements.
 
 ## Tech Stack
 
-- **Frontend**: React Native (Expo), TypeScript, Reanimated, Expo Router.
-- **Backend API**: Express.js server for handling API requests and serving the web build.
-- **Database / Auth**: Supabase.
-- **State Management**: TanStack Query & React Context.
+-   **Framework**: Flutter (Dart)
+-   **State Management**: Flutter Riverpod
+-   **Navigation**: GoRouter
+-   **Storage**: SharedPreferences (JSON persistence)
+-   **Backend (Auth)**: Supabase
+-   **UI/Theming**: Material 3, Google Fonts (Cairo)
 
 ## Project Structure
 
-- `app/`: Expo Router screens and navigation.
-- `components/`: Reusable UI components.
-- `lib/`: Business logic, storage helpers, and Supabase client.
-- `server/`: Express backend server.
-- `assets/`: Images and fonts.
+```
+lib/
+├── core/            # Theme, constants, utils
+├── data/            # Models, StorageService
+├── screens/         # UI Screens (Auth, Home, Course, Lesson, Quiz, Game)
+└── main.dart        # Entry point & Routing
+```
 
-## Setup & Installation
+## Getting Started
 
-1.  **Install Dependencies**:
+### Prerequisites
+
+-   [Flutter SDK](https://docs.flutter.dev/get-started/install) installed.
+-   VS Code or Android Studio with Flutter extensions.
+
+### Installation
+
+1.  **Get Dependencies**:
     ```bash
-    npm install
+    flutter pub get
     ```
 
-2.  **Environment Variables**:
-    Create a `.env` file with your Supabase credentials:
-    ```env
-    EXPO_PUBLIC_SUPABASE_URL=your_supabase_url
-    EXPO_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-    ```
+2.  **Run the App**:
+    -   Select your device (Chrome, Edge, Android Emulator, or iOS Simulator).
+    -   Run:
+        ```bash
+        flutter run
+        ```
 
-3.  **Run Development Server**:
-    ```bash
-    npm run expo:dev
-    ```
+## Configuration
 
-4.  **Run Backend Server** (Optional for local dev, required for full API features):
-    ```bash
-    npm run server:dev
-    ```
+-   **Supabase**: The app is configured with placeholder Supabase credentials in `lib/main.dart`. Update them with your own project details to enable real authentication.
 
-## Building for Production
+## Note
 
-- **Web**: `npm run expo:static:build`
-- **Server**: `npm run server:build`
-
-## License
-
-This project is proprietary software.
+This project was migrated from a React Native codebase to Flutter to provide a more native and performant experience across platforms.
