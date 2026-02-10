@@ -17,13 +17,13 @@ function setupCors(app: express.Application) {
   app.use((req, res, next) => {
     const origins = new Set<string>();
 
-    if (process.env.REPLIT_DEV_DOMAIN) {
-      origins.add(`https://${process.env.REPLIT_DEV_DOMAIN}`);
+    if (process.env.EXPO_PUBLIC_DOMAIN) {
+      origins.add(process.env.EXPO_PUBLIC_DOMAIN);
     }
 
-    if (process.env.REPLIT_DOMAINS) {
-      process.env.REPLIT_DOMAINS.split(",").forEach((d) => {
-        origins.add(`https://${d.trim()}`);
+    if (process.env.EXPO_CORS_ORIGINS) {
+      process.env.EXPO_CORS_ORIGINS.split(",").forEach((d: string) => {
+        origins.add(d.trim());
       });
     }
 
@@ -32,9 +32,21 @@ function setupCors(app: express.Application) {
     // Allow localhost origins for Expo web development (any port)
     const isLocalhost =
       origin?.startsWith("http://localhost:") ||
-      origin?.startsWith("http://127.0.0.1:");
+      origin?.startsWith("http://127.0.0.1:") ||
+      origin?.startsWith("http://localhost") ||
+      origin?.startsWith("http://127.0.0.1");
 
-    if (origin && (origins.has(origin) || isLocalhost)) {
+    const allowedList = Array.from(origins);
+    const isAllowed =
+      origin &&
+      (allowedList.some((a) => {
+        if (!a) return false;
+        // match exact origin or host suffix
+        return origin === a || origin.endsWith(a) || origin.endsWith(a.replace(/^https?:\/\//, ""));
+      }) ||
+        isLocalhost);
+
+    if (origin && isAllowed) {
       res.header("Access-Control-Allow-Origin", origin);
       res.header(
         "Access-Control-Allow-Methods",

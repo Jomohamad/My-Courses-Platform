@@ -29,16 +29,11 @@
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [
-      [
+      "plugins": [
         "expo-router",
-        {
-          "origin": "https://replit.com/"
-        }
+        "expo-font",
+        "expo-web-browser"
       ],
-      "expo-font",
-      "expo-web-browser"
-    ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
